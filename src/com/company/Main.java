@@ -10,14 +10,16 @@ public class Main {
     static String dbUrl = "jdbc:mysql://localhost:3306/world";
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection(dbUrl,userName,password);
+            conn = DriverManager.getConnection(dbUrl, userName, password);
             System.out.println("Bağlantı oluştu");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            conn.close();
         }
 
     }
