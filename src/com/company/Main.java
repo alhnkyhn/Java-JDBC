@@ -5,22 +5,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Main {
-    static String userName = "root";
-    static String password = "12345";
-    static String dbUrl = "jdbc:mysql://localhost:3306/world";
-
-
-    public static void main(String[] args) throws SQLException {
-
-        Connection conn = null;
+    static Connection conn;
+    public static void main(String[] args)  {
+        DbHelper helper = new DbHelper();
         try {
-            conn = DriverManager.getConnection(dbUrl, userName, password);
-            System.out.println("Bağlantı oluştu");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } finally {
-            conn.close();
+            conn = helper.getConnection();
+            System.out.println("Bağlantı kuruldu.");
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
+    }
 
+    public void showErrorMessage(SQLException exception){ // Exception handler method
+        System.out.println("Error: " + exception.getMessage());
+        System.out.println("Hata Kodu: " + exception.getErrorCode());
     }
 }
